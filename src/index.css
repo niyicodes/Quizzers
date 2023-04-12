@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Saira:wght@100;200;300;400;500;600;700&display=swap");
+
+* {
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.signup-text {
+ @apply text-white capitalize xs:text-5xl md:text-7xl font-primary font-extrabold text-center mb-8;
+}
+
+.card {
+ @apply w-48 h-48 flex flex-col justify-center gap-4 items-center mb-4 shadow-2xl shadow-zinc-900 bg-waikawa-gray-800 font-primary rounded-xl hover:cursor-pointer;
+}
+
+.ul {
+ @apply border border-contessa-200 py-4 px-6 rounded-xl
+}
+.li {
+ @apply flex gap-2 lg:text-xl items-center pb-3 xs:text-lg;
+}
+.edit-icon {
+ @apply text-waikawa-gray-800 hover:cursor-pointer;
+}
+
+.questionInput{
+ @apply border-b border-gray-400 focus:border-blue-500 focus:outline-none text-2xl
+}
+
+.questionLabel{
+ @apply flex gap-3 md:text-2xl xs:text-base font-semibold capitalize
+}
+
+.questionRadio{
+ @apply w-8 h-8 xs:w-4 xs:h-6 capitalize
+}
+
+.questionFormParagraph{
+ @apply lg:text-3xl xs:text-base font-medium py-3
+}
+.questionFormInput{
+ @apply border-2 lg:py-3 xs:py-2 capitalize lg:w-3/4 xs:w-4/5 lg:mr-3 xs:mr-0 pl-3 md:text-2xl xs:text-base
+}
+.questionFormButton{
+ @apply lg:text-2xl xs:text-base font-bold border-2 lg:p-4 xs:p-2 xs:my-2 rounded-2xl
+}
+
+.fieldset{
+ @apply flex flex-row justify-between lg:text-3xl xs:text-xl lg:mb-8 xs:mb-4
+}
+.legend{
+ @apply lg:my-6 xs:my-4 xs:text-base lg:text-2xl
+}

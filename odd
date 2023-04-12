@@ -1,0 +1,6 @@
+{currentIndex >= Quiz.length && (
+ <div>
+  <p>Game Ended, Your score is {score}</p>
+ </div>
+)}
+
