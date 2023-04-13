@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
-
 import {
  GoogleAuthProvider,
  getAuth,
  signInWithPopup,
  onAuthStateChanged,
 } from "firebase/auth";
+import { toast } from "react-toastify";
 
 
 const firebaseConfig = {
@@ -33,8 +33,9 @@ const signInWithGoogle = async () => {
   const res = await signInWithPopup(auth, googleProvider);
   const user = res.user;
  } catch (err) {
-  console.error(err);
-  alert(err.message);
+  toast.error("Popup closed by you, try signing in again",{
+    position: toast.POSITION.TOP_CENTER
+  });
  }
 };
 

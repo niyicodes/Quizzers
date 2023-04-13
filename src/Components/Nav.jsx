@@ -2,25 +2,24 @@ import React, { useEffect, useState } from "react";
 import { IoMdPerson } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { auth } from "../Firebase/firebase";
 import Logo from "../images/logo.png";
 import { logout, selectUser } from "../Redux/Features/User/user";
 
 function Nav() {
- const [isOpen, setIsOpen] = useState(false);
  const user = useSelector(selectUser);
  
-
-
-
-
  const dispatch = useDispatch();
  const navigate = useNavigate();
 
  const Logout = () => {
   dispatch(logout());
   auth.signOut();
-  nagivate("/");
+  toast.success("Successfully signed out", {
+   position: toast.POSITION.TOP_RIGHT
+  })
+  navigate("/");
  };
 
  return (
@@ -45,9 +44,9 @@ function Nav() {
        </div>
        <div className="profile">
         {user ? (
-         <IoMdPerson className="text-2xl text-white hover:cursor-pointer" />
-        ) : (
-         <img src="" alt="photo" className="w-12 h-12 rounded-full"/>
+        <img src={user.photoUrl} alt="photo" className="w-12 h-12 rounded-full"/>
+         ) : (
+          <IoMdPerson className="text-2xl text-white hover:cursor-pointer" />
         )}
        </div>
       </div>

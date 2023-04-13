@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -28,6 +28,9 @@ function App() {
      displayName: userAuth.displayName,
      photoUrl: userAuth.photoURL,
     }))
+    toast.success("Successfully logged in", {
+     position: toast.POSITION.TOP_RIGHT
+    })
    }
   })
  },[])
