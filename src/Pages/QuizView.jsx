@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
+import { BiTimer, BiPlus, BiPlay, BiShare } from "react-icons/bi";
+import { TbVariablePlus } from "react-icons/tb";
 import Image from "../images/image.jpg";
 import Question from "../Components/Question";
 import QuestionForm from "../Components/QuestionForm";
 import AnswerQuiz from "./AnswerQuiz";
-
+import { toast } from "react-toastify";
 
 const QuizView = () => {
  const dispatch = useDispatch();
@@ -16,90 +18,110 @@ const QuizView = () => {
  const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
 
  const openModal = () => {
-  setIsQuestionModalOpen(true);
+  toast.info("Opening Questin Form!", {
+   position: toast.POSITION.TOP_RIGHT,
+  });
+  setTimeout(() => {
+   setIsQuestionModalOpen(true);
+  }, 1000);
  };
  const AnswerModal = () => {
-  setIsAnswerModalOpen(true);
+  if (questions.length < 1) {
+   toast.error("Please add a question before attempting Quiz!", {
+    position: toast.POSITION.TOP_RIGHT,
+   });
+  } else {
+   toast.success("Attempting Quiz", {
+    position: toast.POSITION.TOP_RIGHT,
+   });
+   setIsAnswerModalOpen(true);
+  }
  };
 
  const closeModal = () => {
   setIsQuestionModalOpen(false);
  };
-
  return (
   <main className="lg:mx-8 xs:mx-4 mt-28 font-primary">
-   <section className="flex xs:grid xs:grid-cols-1 xs:gap-4 lg:flex-row justify-between items-center mx-auto p-4 border-4 border-contessa-500 rounded-2xl">
-    <div className="flex xs:justify-between gap-4 items-center">
-     <figure className="xs:hidden md:block xs:w-2/4 lg:w-56 lg:h-56">
-      <img
-       src={Image}
-       alt=""
-       className="lg:h-full object-cover xs:object-contain"
-      />
+   {/* Quiz details section */}
+   <section className="flex md:flex-row xs:flex-col xs:gap-8 md:justify-between border-b-4 pb-5 md:pt-8">
+    <div className="flex xs:flex-col md:flex-row gap-8 md:items-center">
+     <figure className="md:w-1/3">
+      <img src={Image} alt="" />
      </figure>
-     <div>
-      <ul className="ul">
-       <li className="li">
-        <FaEdit className="edit-icon" />{" "}
-        <h3 className="font-bold text-contessa-700">{quiz.quizName}</h3>
-       </li>
-       <li className="li">
-        <FaEdit className="edit-icon" />{" "}
-        <h3 className="font-bold text-contessa-700">{quiz.description}</h3>
-       </li>
-       <li className="li">
-        <FaEdit className="edit-icon" />{" "}
-        <h3 className="font-bold text-contessa-700">{quiz.points}</h3>
-       </li>
-       <li className="li">
-        <h3 className="font-bold text-contessa-700">
-         {quiz.questions.length} Total Questions
-        </h3>
-       </li>
-      </ul>
+     <div className="flex flex-col gap-2">
+      <h3 className="text-4xl font-semibold">{quiz.quizName}</h3>
+      <p className="w-4/5 text-xl">{quiz.description}</p>
+      <p className="w-4/5 text-xl">
+       <span className="text-contessa-800 font-bold">{questions.length}</span>{" "}
+       Question(s)
+      </p>
+      <div className="time/points flex flex-row gap-12">
+       <div className="flex flex-row items-center gap-2">
+        <div className=" bg-waikawa-gray-300 xs:p-2 p-3 rounded-lg">
+         <BiTimer className="xs:text-xl md:text-2xl xl:text-3xl text-waikawa-gray-900" />
+        </div>
+        <div>
+         <small className="text-slate-500 font-medium">Time Limit</small>
+         <h4 className="text-black font-bold">{quiz.timeLimit}mins</h4>
+        </div>
+       </div>
+       <div className="flex flex-row items-center gap-2">
+        <div className=" bg-waikawa-gray-300 xs:p-2 xl:p-3 rounded-lg">
+         <TbVariablePlus className="xs:text-xl md:text-2xl xl:text-3xl text-waikawa-gray-900" />
+        </div>
+        <div>
+         <small className="text-slate-500 font-medium">
+          Points per correct answer
+         </small>
+         <h4 className="text-black font-bold">{quiz.points}marks</h4>
+        </div>
+       </div>
+      </div>
      </div>
     </div>
     <div>
-     <ul className="ul">
-      <li className="li">
-       <FaEdit className="edit-icon" />{" "}
-       <h3 className="font-bold text-contessa-700">Category</h3>
-      </li>
-      <li className="li">
-       <FaEdit className="edit-icon" />{" "}
-       <h3 className="font-bold text-contessa-700">Difficulty</h3>
-      </li>
-      <li className="li">
-       <FaEdit className="edit-icon" />{" "}
-       <h3 className="font-bold text-contessa-700">{quiz.timeLimit}</h3>
-      </li>
-     </ul>
+     <button className="bg-contessa-500 text-white flex items-center gap-1 xs:px-5 xl:px-6 xs:py-3 xl:py-2 rounded-lg">
+      <FaEdit /> Edit Form
+     </button>
     </div>
    </section>
-   <div className="my-8">
-    <button className="border-2 bg-waikawa-gray-500 px-12 py-2 rounded-full text-lg text-white font-bold" onClick={AnswerModal}>
-     Play
-    </button>
-    {isAnswerModalOpen && (
-     <AnswerQuiz setIsAnswerModalOpen={setIsAnswerModalOpen} />
-    )}
-   </div>
-   <section className="rounded-2xl border p-4 mb-8">
-    <h3 className="text-2xl font-bold">set up your questions</h3>
-    <div>
-     {questions.map((item, index) => {
-      return <Question key={index} question={item.question} id={item.id} />;
-     })}
+   {/* set up question section */}
+   <section className="setup mt-8">
+    <div className="flex md:flex-row xs:flex-col xs:gap-4 justify-between items-center">
+     <div>
+      <h3 className="text-3xl font-bold">Set Questions</h3>
+     </div>
+     <div className="flex items-center">
+      <button className="add" onClick={openModal}>
+       <BiPlus className="w-5 h-5 mr-2 -ml-1" /> Add Question
+      </button>
+      <button className="play" onClick={AnswerModal}>
+       <BiPlay className="w-5 h-5 mr-2 -ml-1" /> Play Quiz
+      </button>
+      <button className="share" disabled>
+       <BiShare className="w-5 h-5 mr-2 -ml-1" />
+       Share Quiz
+      </button>
+      {isQuestionModalOpen && (
+       <QuestionForm setIsQuestionModalOpen={setIsQuestionModalOpen} />
+      )}
+      {isAnswerModalOpen && (
+       <AnswerQuiz setIsAnswerModalOpen={setIsAnswerModalOpen} />
+      )}
+     </div>
     </div>
-    <button
-     className="flex mx-auto rounded-full border-2 px-16 py-3 my-7 text-white bg-gradient-to-r from-contessa-400 via-gray-500 to-waikawa-gray-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium text-xl text-center"
-     onClick={openModal}
-    >
-     Add Question
-    </button>
-    {isQuestionModalOpen && (
-     <QuestionForm setIsQuestionModalOpen={setIsQuestionModalOpen} />
-    )}
+    <div className="questions bordeer-2 mt-12">
+     {questions.length > 0 ? (
+      questions.map((item, index) => {
+       return <Question key={index} question={item.question} id={item.id} />;
+      })
+     ) : (
+      <div className="flex justify-center items-center text-3xl text-bold">
+       <p>Please add questions</p>
+      </div>
+     )}
+    </div>
    </section>
   </main>
  );

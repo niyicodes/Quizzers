@@ -9,6 +9,7 @@ import {
 } from "../Redux/Features/QuizForm/quizform";
 import FormInput from "./FormInput";
 import Spinner from "../speedometer.gif";
+import { toast } from "react-toastify";
 
 
 const QuizForm = () => {
@@ -52,7 +53,9 @@ const QuizForm = () => {
    description === "" ||
    timeLimit === ""
   ) {
-   alert("Please fill the input fields");
+   toast.error("Please fill the input fields",{
+    position: toast.POSITION.TOP_RIGHT
+   });
   } else {
    setIsSpinning(true);
    setTimeout(() => {
@@ -102,7 +105,7 @@ const QuizForm = () => {
      <input
       type="submit"
       value="Next"
-      className="flex flex-row justify-center items-center border-2 px-4 py-2 border-contessa-800 w-full mt-4 text-2xl text-waikawa-gray-800 font-bold rounded-2xl"
+      className="flex flex-row justify-center items-center border-2 px-4 py-2 bg-contessa-700 w-2/4 mx-auto mt-4 text-2xl text-white font-bold rounded-2xl"
      />
     </form>
     {isSpinning && (

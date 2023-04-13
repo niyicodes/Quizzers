@@ -24,7 +24,7 @@ function Nav() {
  };
 
  return (
-  <div className="fixed w-full bg-gray-800 py-4 top-0">
+  <div className="fixed w-full bg-waikawa-gray-900 py-4 top-0">
    <nav className="font-primary">
     <div className="">
      <div className="flex items-center justify-between  h-16">
@@ -36,16 +36,16 @@ function Nav() {
       <div className="flex gap-4 items-center pr-3">
        <div className="btn">
         {user ? (
-         <button className="text-2xl text-contessa-700" onClick={Logout}>
+         <button className="text-2xl text-white" onClick={Logout}>
           Logout
          </button>
         ) : (
-         <button className="text-2xl text-contessa-700">Login</button>
+         <button className="text-2xl text-white">Login</button>
         )}
        </div>
        <div className="profile">
         {user ? (
-         <IoMdPerson className="text-2xl text-waikawa-gray-700 hover:cursor-pointer" />
+         <IoMdPerson className="text-2xl text-white hover:cursor-pointer" />
         ) : (
          <img src="" alt="photo" className="w-12 h-12 rounded-full"/>
         )}

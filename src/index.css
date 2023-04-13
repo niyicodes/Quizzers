@@ -44,7 +44,7 @@
  @apply lg:text-3xl xs:text-base font-medium py-3
 }
 .questionFormInput{
- @apply border-2 lg:py-3 xs:py-2 capitalize lg:w-3/4 xs:w-4/5 lg:mr-3 xs:mr-0 pl-3 md:text-2xl xs:text-base
+ @apply border-2 lg:py-3 xs:py-2 lg:w-3/4 xs:w-4/5 lg:mr-3 xs:mr-0 pl-3 md:text-2xl xs:text-base
 }
 .questionFormButton{
  @apply lg:text-2xl xs:text-base font-bold border-2 lg:p-4 xs:p-2 xs:my-2 rounded-2xl
@@ -55,4 +55,14 @@
 }
 .legend{
  @apply lg:my-6 xs:my-4 xs:text-base lg:text-2xl
+}
+
+.add{
+ @apply text-white bg-waikawa-gray-600 hover:bg-waikawa-gray-800 focus:ring-4 focus:outline-none focus:ring-waikawa-gray-300 font-medium rounded-lg text-sm xs:text-base px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-waikawa-gray-600 dark:hover:bg-waikawa-gray-700 dark:focus:ring-waikawa-gray-800
+}
+.play{
+ @apply text-white bg-waikawa-gray-400 hover:bg-waikawa-gray-600 focus:ring-4 focus:outline-none focus:ring-waikawa-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-waikawa-gray-400 dark:hover:bg-waikawa-gray-500 dark:focus:ring-waikawa-gray-600
+}
+.share{
+ @apply text-white  bg-contessa-200 dark:bg-contessa-100 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center  inline-flex items-center mr-2
 }

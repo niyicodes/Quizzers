@@ -1,8 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuestion } from "../Redux/Features/QuizForm/quizform";
-import Spinner from "../speedometer.gif"
+import Spinner from "../speedometer.gif";
 
 const QuestionForm = ({ setIsQuestionModalOpen }) => {
  const [question, setQuestion] = useState("");
@@ -24,12 +25,17 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
 
  const ADDQUESTION = () => {
   if (question === "" || options === [] || correctAnswer === "") {
-   alert("Please fill up the necessary input fields");
+   toast.error("Please fill up the necessary input fields", {
+    position: toast.POSITION.TOP_RIGHT,
+   });
   } else {
    setIsSpinning(true);
    setTimeout(() => {
     setIsSpinning(true);
     closeModal();
+    toast.success("Question added", {
+     position: toast.POSITION.TOP_RIGHT,
+    });
     dispatch(addQuestion({ id, question, options, optionType, correctAnswer }));
    }, 600);
   }
@@ -59,18 +65,36 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
 
  const handleAddOption = () => {
   if (numOptions < 4) {
-   setOptions((prev) => [...prev, option]);
-   setNumOptions(numOptions + 1);
-   setOption("");
+   if (String(option).trim() !== "") {
+    setOptions((prev) => [...prev, option]);
+    setNumOptions(numOptions + 1);
+    setOption("");
+    toast.success("Option added", {
+     position: toast.POSITION.TOP_RIGHT,
+    });
+   } else {
+    toast.error("Option can't be empty", {
+     position: toast.POSITION.TOP_RIGHT,
+    });
+   }
   }
  };
 
  const handleBooleanOption = () => {
   if (numOptions < 3) {
-   setOptions((prev) => [...prev, option]);
-   setNumOptions(numOptions + 1);
-   setOption("");
-  }
+   if (String(option).trim() !== "") {
+     setOptions((prev) => [...prev, option]);
+     setNumOptions(numOptions + 1);
+     setOption("");
+     toast.success("Option added",{
+      position: toast.POSITION.TOP_RIGHT
+     })
+   } else {
+    toast.error("Option can't be empty",{
+     position: toast.POSITION.TOP_RIGHT
+    });
+   }
+ }
  };
 
  let optionsInput;
@@ -88,11 +112,14 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
      className="questionFormInput"
      value={option}
      onChange={handleOption}
+     disabled={numOptions === 2}
+     
     />
     <button
      type="button"
      onClick={handleBooleanOption}
      className="questionFormButton"
+     disabled={numOptions === 2}
     >
      Add Option
     </button>
@@ -126,11 +153,13 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
      className="questionFormInput"
      value={option}
      onChange={handleOption}
+     disabled={numOptions === 4}
     />
     <button
      type="button"
      onClick={handleAddOption}
      className="questionFormButton"
+     disabled={numOptions === 4}
     >
      Add Option
     </button>
@@ -217,10 +246,10 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
      </button>
     </section>
     {isSpinning && (
-    <div className="fixed inset-0 bg-black bg-opacity-100 flex justify-center items-center font-primary xs:overflow-y-auto">
-     <img src={Spinner} alt="" />
-    </div>
-   )}
+     <div className="fixed inset-0 bg-black bg-opacity-100 flex justify-center items-center font-primary xs:overflow-y-auto">
+      <img src={Spinner} alt="" />
+     </div>
+    )}
    </div>
   </main>
  );

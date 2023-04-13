@@ -1,5 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Nav from "./Components/Nav";
@@ -44,6 +46,7 @@ function App() {
      </>)}
     </AnimatePresence>
    </div>
+   <ToastContainer />
   </div>
  );
 }
