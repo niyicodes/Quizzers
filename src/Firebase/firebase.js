@@ -33,7 +33,7 @@ const signInWithGoogle = async () => {
   const res = await signInWithPopup(auth, googleProvider);
   const user = res.user;
  } catch (err) {
-  toast.error("Popup closed by you, try signing in again",{
+  toast.error("Auth failed, try signing in again",{
     position: toast.POSITION.TOP_CENTER
   });
  }
