@@ -28,7 +28,7 @@ const Home = () => {
      </div>
     )}
     {isModalOpen && <QuizForm />}
-    <Card icon={Play} title={"Start a quiz"} />
+    <Card icon={Play} title={"Start a quiz (Soon!!)"} />
    </div>
   </div>
  );

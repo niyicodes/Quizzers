@@ -21,7 +21,7 @@ const QuizView = () => {
  const [isQuizFormModalOpen, setIsQuizFormModalOpen] = useState(false);
 
  const openModal = () => {
-  toast.info("Opening Questin Form!", {
+  toast.info("Opening Question Form!", {
    position: toast.POSITION.TOP_RIGHT,
   });
   setTimeout(() => {
