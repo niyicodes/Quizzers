@@ -66,7 +66,7 @@ const QuizForm = () => {
 
  return (
   <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center font-primary">
-   <div className="bg-white p-4 rounded-xl py-8 h-auto w-3/4">
+   <div className="bg-white p-4 rounded-xl py-8 h-auto xs:w-full xs:mx-3 md:w-3/4 xs:overflow-y-auto">
     <form className="overflow-y-scroll" onSubmit={handleSubmit}>
      <h2 className="mb-8 text-center text-3xl">Quiz Setup</h2>
      <FormInput
