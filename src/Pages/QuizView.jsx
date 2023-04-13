@@ -8,6 +8,8 @@ import Question from "../Components/Question";
 import QuestionForm from "../Components/QuestionForm";
 import AnswerQuiz from "./AnswerQuiz";
 import { toast } from "react-toastify";
+import EditForm from "../Components/EditForm";
+import { useNavigate } from "react-router-dom";
 
 const QuizView = () => {
  const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const QuizView = () => {
 
  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
  const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
+ const [isQuizFormModalOpen, setIsQuizFormModalOpen] = useState(false);
 
  const openModal = () => {
   toast.info("Opening Questin Form!", {
@@ -41,6 +44,14 @@ const QuizView = () => {
  const closeModal = () => {
   setIsQuestionModalOpen(false);
  };
+
+ const openQuizFormModal = () => {
+  toast.warning("Editing Quiz details", {
+   position: toast.POSITION.TOP_RIGHT,
+  });
+  setIsQuizFormModalOpen(true);
+ };
+
  return (
   <main className="lg:mx-8 xs:mx-4 mt-28 font-primary">
    {/* Quiz details section */}
@@ -81,9 +92,12 @@ const QuizView = () => {
      </div>
     </div>
     <div>
-     <button className="bg-contessa-500 text-white flex items-center gap-1 xs:px-5 xl:px-6 xs:py-3 xl:py-2 rounded-lg">
+     <button className="bg-contessa-500 text-white flex items-center gap-1 xs:px-5 xl:px-6 xs:py-3 xl:py-2 rounded-lg" onClick={openQuizFormModal}>
       <FaEdit /> Edit Form
      </button>
+     {
+      isQuizFormModalOpen && <EditForm setIsQuizFormModalOpen={setIsQuizFormModalOpen}/>
+     }
     </div>
    </section>
    {/* set up question section */}

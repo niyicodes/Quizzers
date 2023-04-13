@@ -1,107 +1,112 @@
-import { nanoid } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addQuestion, editQuestion } from "../Redux/Features/QuizForm/quizform";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+ setQuizName,
+ setDescription,
+ setPoints,
+ setTimeLimit,
+} from "../Redux/Features/QuizForm/quizform";
+import FormInput from "./FormInput";
+import { toast } from "react-toastify";
 
-const EditForm = ({ setIsQuestionModalOpen, question }) => {
- const [formData, setFormData] = useState(question);
- // const [optionType, setOptionType] = useState("");
- // const [options, setOptions] = useState([]);
- // const [option, setOption] = useState([]);
- // const [numOptions, setNumOptions] = useState(0);
- // const [correctAnswer, setCorrectAnswer] = useState("");
- const handleChange = (e) => {
-  setFormData({
-   ...formData,
-   [e.target.name]: e.target.value,
-  });
+const EditForm = ({setIsQuizFormModalOpen}) => {
+ const navigate = useNavigate();
+ const dispatch = useDispatch();
+
+ // const quizForm = useSelector((state) => state.quizForm);
+
+ const quizName = useSelector((state) => state.quizform.quizName);
+ const description = useSelector((state) => state.quizform.description);
+ const points = useSelector((state) => state.quizform.points);
+ const timeLimit = useSelector((state) => state.quizform.timeLimit);
+
+ const handleQuizNameChange = (event) => {
+  dispatch(setQuizName(event.target.value));
+  localStorage.setItem("quizName", JSON.stringify(event.target.value));
  };
+
+ const handleDescriptionChange = (event) => {
+  dispatch(setDescription(event.target.value));
+  localStorage.setItem("description", JSON.stringify(event.target.value));
+ };
+
+ const handlePointsChange = (event) => {
+  dispatch(setPoints(Number(event.target.value)));
+  localStorage.setItem("points", JSON.stringify(event.target.value));
+ };
+
+ const handleTimeLimitChange = (event) => {
+  dispatch(setTimeLimit(Number(event.target.value)));
+  localStorage.setItem("timeLimit", JSON.stringify(event.target.value));
+ };
+
  const handleSubmit = (e) => {
   e.preventDefault();
-  dispatch(editQuestion(formData));
-  onSubmit();
- };
 
- const closeModal = () => {
-  setIsQuestionModalOpen(false);
- };
-
- const dispatch = useDispatch();
- const id = nanoid();
-
- const ADDQUESTION = () => {
-  if (question === "" || options === [] || correctAnswer === "") {
-   alert("Please fill up the necessary input fields");
+  if (
+   quizName === "" ||
+   points === "" ||
+   description === "" ||
+   timeLimit === ""
+  ) {
+   toast.error("Please fill the input fields", {
+    position: toast.POSITION.TOP_RIGHT,
+   });
   } else {
-   dispatch(addQuestion({ id, question, options, optionType, correctAnswer }));
-   closeModal();
-  }
- };
-
- const handleCorrectAnswer = (event) => {
-  setCorrectAnswer(event.target.value);
- };
-
- const handleQuestionChange = (event) => {
-  setQuestion(event.target.value);
- };
- const handleOption = (event) => {
-  setOption(event.target.value);
- };
-
- const handleOptionTypeChange = (event) => {
-  setOptionType(event.target.value);
-  setOptions([]);
- };
-
- const handleOptionChange = (event, index) => {
-  const newOptions = [...options];
-  newOptions[index] = event.target.value;
-  setOptions(newOptions);
- };
-
- const handleAddOption = () => {
-  if (numOptions < 4) {
-   setOptions((prev) => [...prev, option]);
-   setNumOptions(numOptions + 1);
-   setOption("");
-  }
- };
-
- const handleBooleanOption = () => {
-  if (numOptions < 3) {
-   setOptions((prev) => [...prev, option]);
-   setNumOptions(numOptions + 1);
-   setOption("");
+   navigate("/quizview");
+   toast.success("Finished Editing", {
+    position: toast.POSITION.TOP_RIGHT,
+   });
+   setIsQuizFormModalOpen(false)
   }
  };
 
  return (
-  <main className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center font-primary">
-   <div className="bg-white p-8 rounded-xl py-8 h-auto w-3/4">
-    <form onSubmit={handleSubmit}>
-     <label>
-      Question:
-      <input
-       type="text"
-       name="question"
-       value={formData.question}
-       onChange={handleChange}
-      />
-     </label>
-     <label>
-      Options:
-      <input
-       type="text"
-       name="options"
-       value={formData.options}
-       onChange={handleChange}
-      />
-     </label>
-     <button type="submit">Save</button>
+  <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center font-primary">
+   <div className="bg-white p-4 rounded-xl py-8 h-auto w-3/4">
+    <form className="overflow-y-scroll" onSubmit={handleSubmit}>
+     <h2 className="mb-8 text-center text-3xl">Edit Quiz Info</h2>
+     <FormInput
+      label={"Let's give your quiz a name"}
+      name="name"
+      type="text"
+      placeholder={"Enter the quiz name"}
+      value={quizName}
+      handleChange={handleQuizNameChange}
+     />
+     <FormInput
+      label={"Give a brief description"}
+      name="description"
+      type="text"
+      placeholder={"Enter quiz description"}
+      value={description}
+      handleChange={handleDescriptionChange}
+     />
+     <FormInput
+      label={"Points/Grading System:"}
+      name="name"
+      type="number"
+      placeholder={"Enter point (in number)"}
+      value={points}
+      handleChange={handlePointsChange}
+     />
+     <FormInput
+      label={"Time Limit"}
+      name="name"
+      type="number"
+      placeholder={"Enter Time in minutes"}
+      value={timeLimit}
+      handleChange={handleTimeLimitChange}
+     />
+     <input
+      type="submit"
+      value="Finish Editing"
+      className="flex flex-row justify-center items-center border-2 px-4 py-2 bg-contessa-700 w-2/4 mx-auto mt-4 text-2xl text-white font-bold rounded-2xl hover:cursor-pointer"
+     />
     </form>
    </div>
-  </main>
+  </div>
  );
 };
 
