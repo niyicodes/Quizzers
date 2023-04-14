@@ -21,12 +21,7 @@ const QuizView = () => {
  const [isQuizFormModalOpen, setIsQuizFormModalOpen] = useState(false);
 
  const openModal = () => {
-  toast.info("Opening Question Form!", {
-   position: toast.POSITION.TOP_RIGHT,
-  });
-  setTimeout(() => {
-   setIsQuestionModalOpen(true);
-  }, 1000);
+  setIsQuestionModalOpen(true);
  };
  const AnswerModal = () => {
   if (questions.length < 1) {
@@ -92,12 +87,15 @@ const QuizView = () => {
      </div>
     </div>
     <div>
-     <button className="bg-contessa-500 text-white flex items-center gap-1 xs:px-5 xl:px-6 xs:py-3 xl:py-2 rounded-lg" onClick={openQuizFormModal}>
+     <button
+      className="bg-contessa-500 text-white flex items-center gap-1 xs:px-5 xl:px-6 xs:py-3 xl:py-2 rounded-lg"
+      onClick={openQuizFormModal}
+     >
       <FaEdit /> Edit Form
      </button>
-     {
-      isQuizFormModalOpen && <EditForm setIsQuizFormModalOpen={setIsQuizFormModalOpen}/>
-     }
+     {isQuizFormModalOpen && (
+      <EditForm setIsQuizFormModalOpen={setIsQuizFormModalOpen} />
+     )}
     </div>
    </section>
    {/* set up question section */}

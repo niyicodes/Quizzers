@@ -13,7 +13,8 @@ const Signup = () => {
    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
    <div className="relative z-10 flex flex-col justify-center items-center h-screen lg:mx-8">
     <h3 className="signup-text">
-     want to be able to set quiz for people??
+     want to be able to set quiz for people?? 
+     <span className="text-3xl">Sign in to get started</span>
     </h3>
     <button
      type="button"

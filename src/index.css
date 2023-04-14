@@ -11,7 +11,7 @@
 @tailwind utilities;
 
 .signup-text {
- @apply text-white capitalize xs:text-5xl md:text-7xl font-primary font-extrabold text-center mb-8;
+ @apply text-white capitalize xs:text-3xl md:text-7xl font-primary font-extrabold text-center mb-8;
 }
 
 .card {
