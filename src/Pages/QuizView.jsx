@@ -47,6 +47,10 @@ const QuizView = () => {
   setIsQuizFormModalOpen(true);
  };
 
+ const closeEditFormModal = () => {
+  setIsQuizFormModalOpen(false);
+ }
+
  return (
   <main className="lg:mx-8 xs:mx-4 mt-28 font-primary">
    {/* Quiz details section */}

@@ -16,10 +16,18 @@ const Home = () => {
   }, 1000);
  };
 
+ const closeModal = () => {
+  setIsSpinning(false);
+  setTimeout(() => {
+   setIsSpinning(false);
+   setIsModalOpen(false);
+  }, 100);
+ }
+
  const Play = <FiPlay />;
  const Plus = <FiPlus />;
  return (
-  <div className="bg-contessa-600 h-screen flex items-center justify-center mt-8">
+  <div className="bg-waikawa-gray-200 h-screen flex items-center justify-center mt-8">
    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 align-middle">
     <Card icon={Plus} title={"Create a quiz"} handleClick={openModal} />
     {isSpinning && (
@@ -27,7 +35,7 @@ const Home = () => {
       <img src={Spinner} alt="" />
      </div>
     )}
-    {isModalOpen && <QuizForm />}
+    {isModalOpen && <QuizForm closeModal={closeModal}/>}
     <Card icon={Play} title={"Start a quiz (Soon!!)"} />
    </div>
   </div>

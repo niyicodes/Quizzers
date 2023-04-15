@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { GiCancel } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,7 +12,7 @@ import FormInput from "./FormInput";
 import Spinner from "../speedometer.gif";
 import { toast } from "react-toastify";
 
-const QuizForm = () => {
+const QuizForm = ({ closeModal }) => {
  const navigate = useNavigate();
  const dispatch = useDispatch();
  const [isSpinning, setIsSpinning] = useState(false);
@@ -64,8 +65,18 @@ const QuizForm = () => {
   }
  };
 
+ const closeQuizModal = () => {
+  closeModal()
+ };
+
  return (
   <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center font-primary">
+   <div>
+    <GiCancel
+     className="text-white text-3xl absolute right-4 top-4 hover:cursor-pointer"
+     onClick={closeQuizModal}
+    />
+   </div>
    <div className="bg-white p-4 rounded-xl py-8 h-auto xs:w-full xs:mx-3 md:w-3/4 xs:overflow-y-auto">
     <form className="overflow-y-scroll" onSubmit={handleSubmit}>
      <h2 className="mb-8 text-center text-3xl">Quiz Setup</h2>

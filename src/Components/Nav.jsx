@@ -34,12 +34,10 @@ function Nav() {
       </div>
       <div className="flex gap-4 items-center pr-3">
        <div className="btn">
-        {user ? (
+        {user && (
          <button className="text-2xl text-white" onClick={Logout}>
           Logout
          </button>
-        ) : (
-         <button className="text-2xl text-white">Login</button>
         )}
        </div>
        <div className="profile">
