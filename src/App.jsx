@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +9,15 @@ import { auth, onAuthStateChanged } from "./Firebase/firebase";
 import Home from "./Pages/Home";
 import QuizView from "./Pages/QuizView";
 import Signup from "./Pages/Signup";
-import AnswerQuizPage from "./Pages/AnswerQuizPage";
 import { login, selectUser } from "./Redux/Features/User/user";
+import AnswerQuizPage from "./Pages/AnswerQuizPage";
 
 function App() {
  const location = useLocation();
  const dispatch = useDispatch();
  const user = useSelector(selectUser);
- const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
+
 
  useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
@@ -30,30 +31,31 @@ function App() {
      })
     );
    }
-   setIsLoading(false);
+			setIsLoading(false);
   });
-  return () => unsubscribe();
- }, [dispatch]);
+		return () => unsubscribe();
+ },[dispatch]);
 
- useEffect(() => {
-  if (user) {
-   toast.success("Successfully logged in", {
-    position: toast.POSITION.TOP_RIGHT,
-   });
-  }
- }, [user]);
+	useEffect(() => {
+		if (user) {
+				toast.success("Successfully logged in", {
+						position: toast.POSITION.TOP_RIGHT,
+				});
+		}
+}, [user]);
 
- if (isLoading) {
-  return null;
- }
+if (isLoading) {
+	return null; 
+}
 
  return (
   <div className="">
    <Nav />
    <div className="mt-24">
     <AnimatePresence wait>
-     {!user ? (
+     {!user ? (<>
       <Signup />
+     </>
      ) : (
       <>
        <Routes location={location} key={location.pathname}>

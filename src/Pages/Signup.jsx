@@ -13,9 +13,9 @@ const Signup = () => {
    <div class="absolute inset-0 bg-black bg-opacity-75"></div>
    <div className="relative z-10 flex flex-col justify-center items-center h-screen lg:mx-8">
     <h3 className="signup-text">
-     want to be able to set quiz for people?? 
-     <span className="text-3xl">Sign in to get started</span>
+     want to  create a quiz? or you're answering one? 
     </h3>
+     <span className="text-2xl text-white mb-5 font-medium">Sign in to get started</span>
     <button
      type="button"
      class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-2xl px-8 py-5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mb-2"

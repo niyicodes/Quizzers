@@ -11,7 +11,7 @@
 @tailwind utilities;
 
 .signup-text {
- @apply text-white capitalize xs:text-3xl md:text-7xl font-primary font-extrabold text-center mb-8;
+ @apply text-white capitalize xs:text-3xl md:text-6xl font-primary font-extrabold text-center mb-8;
 }
 
 .card {
@@ -64,5 +64,5 @@
  @apply text-white bg-waikawa-gray-400 hover:bg-waikawa-gray-600 focus:ring-4 focus:outline-none focus:ring-waikawa-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-waikawa-gray-400 dark:hover:bg-waikawa-gray-500 dark:focus:ring-waikawa-gray-600
 }
 .share{
- @apply text-white  bg-contessa-700 dark:bg-contessa-100 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center  inline-flex items-center mr-2
+ @apply text-white  bg-contessa-700 dark:bg-contessa-100 cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center  inline-flex items-center mr-2
 }

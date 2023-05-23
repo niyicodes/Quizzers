@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import QuestionCard from "../Components/QuestionCard";
 import { getDoc, doc } from "firebase/firestore";
 import { dbStore } from "../Firebase/firebase";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AnswerQuizPage = () => {
 
@@ -13,6 +13,7 @@ const AnswerQuizPage = () => {
  const [showAnswer, setShowAnswer] = useState(false);
 
  const { id } = useParams();
+	const navigate = useNavigate()
 
  const handleNextQuestion = () => {
   setCurrentIndex(currentIndex + 1);
@@ -76,20 +77,25 @@ const AnswerQuizPage = () => {
    .padStart(2, "0")}`;
  }
 
+
  return (
   <main className="fixed inset-0 bg-black bg-opacity-95 flex justify-center items-center font-primary xs:overflow-y-auto">
    <section className="bg-white p-8 rounded-xl py-8 h-auto xs:w-full xs:mx-3 md:w-3/4">
     {questions.length > 0 && (
      <div className=" ">
       {currentIndex >= questions.length ? (
-       <p className="flex justify-center text-3xl font-bold">
+       <div className="flex flex-col gap-6">
+								<p className="flex justify-center text-3xl font-bold">
         Game Ended, You scored {score} points
        </p>
+							<button onClick={() => navigate("/")}></button>
+							</div>
       ) : remainingTime === 0 ? (
-       <div>
+       <div className="flex flex-col gap-6">
         <p className="flex justify-center text-3xl font-bold">
          Time's up! You scored {score} points
         </p>
+								<button onClick={() => navigate("/")}></button>
        </div>
       ) : (
        <>
