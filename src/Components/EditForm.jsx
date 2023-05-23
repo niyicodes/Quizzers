@@ -1,70 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GiCancel } from "react-icons/gi";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
- setQuizName,
- setDescription,
- setPoints,
- setTimeLimit,
-} from "../Redux/Features/QuizForm/quizform";
+import { useParams } from "react-router-dom";
 import FormInput from "./FormInput";
 import { toast } from "react-toastify";
+import { updateDoc, doc } from "firebase/firestore";
+import { dbStore } from "../Firebase/firebase";
 
-const EditForm = ({setIsQuizFormModalOpen}) => {
- const navigate = useNavigate();
- const dispatch = useDispatch();
+const EditForm = ({ setIsQuizFormModalOpen }) => {
+ const { id } = useParams();
 
- // const quizForm = useSelector((state) => state.quizForm);
+ const [quizName, setQuizName] = useState("");
+ const [description, setDescription] = useState("");
+ const [points, setPoints] = useState("");
+ const [timeLimit, setTimeLimit] = useState("");
 
- const quizName = useSelector((state) => state.quizform.quizName);
- const description = useSelector((state) => state.quizform.description);
- const points = useSelector((state) => state.quizform.points);
- const timeLimit = useSelector((state) => state.quizform.timeLimit);
-
- const handleQuizNameChange = (event) => {
-  dispatch(setQuizName(event.target.value));
-  localStorage.setItem("quizName", JSON.stringify(event.target.value));
- };
-
- const handleDescriptionChange = (event) => {
-  dispatch(setDescription(event.target.value));
-  localStorage.setItem("description", JSON.stringify(event.target.value));
- };
-
- const handlePointsChange = (event) => {
-  dispatch(setPoints(Number(event.target.value)));
-  localStorage.setItem("points", JSON.stringify(event.target.value));
- };
-
- const handleTimeLimitChange = (event) => {
-  dispatch(setTimeLimit(Number(event.target.value)));
-  localStorage.setItem("timeLimit", JSON.stringify(event.target.value));
- };
-
- const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
-  if (
-   quizName === "" ||
-   points === "" ||
-   description === "" ||
-   timeLimit === ""
-  ) {
-   toast.error("Please fill the input fields", {
+  const data = {
+   description,
+   points,
+   quizName,
+   timeLimit,
+  };
+  if (!(description && points && quizName && timeLimit)) {
+   toast.error("Please fill up the necessary input fields", {
     position: toast.POSITION.TOP_RIGHT,
    });
   } else {
-   navigate("/quizview");
-   toast.success("Finished Editing", {
-    position: toast.POSITION.TOP_RIGHT,
-   });
-   setIsQuizFormModalOpen(false)
+   const questions = {};
+
+   try {
+    const docRef = doc(dbStore, "quizzes", id);
+
+    await updateDoc(docRef, { ...questions, data });
+    closeEditModal();
+   } catch (e) {
+    console.error("Error Editing document: ", e);
+   }
   }
  };
 
  const closeEditModal = () => {
-  setIsQuizFormModalOpen(false)
+  setIsQuizFormModalOpen(false);
  };
 
  return (
@@ -84,7 +62,7 @@ const EditForm = ({setIsQuizFormModalOpen}) => {
       type="text"
       placeholder={"Enter the quiz name"}
       value={quizName}
-      handleChange={handleQuizNameChange}
+      handleChange={(e) => setQuizName(e.target.value)}
      />
      <FormInput
       label={"Give a brief description"}
@@ -92,7 +70,7 @@ const EditForm = ({setIsQuizFormModalOpen}) => {
       type="text"
       placeholder={"Enter quiz description"}
       value={description}
-      handleChange={handleDescriptionChange}
+      handleChange={(e) => setDescription(e.target.value)}
      />
      <FormInput
       label={"Points/Grading System:"}
@@ -100,7 +78,7 @@ const EditForm = ({setIsQuizFormModalOpen}) => {
       type="number"
       placeholder={"Enter point (in number)"}
       value={points}
-      handleChange={handlePointsChange}
+      handleChange={(e) => setPoints(e.target.value)}
      />
      <FormInput
       label={"Time Limit"}
@@ -108,7 +86,7 @@ const EditForm = ({setIsQuizFormModalOpen}) => {
       type="number"
       placeholder={"Enter Time in minutes"}
       value={timeLimit}
-      handleChange={handleTimeLimitChange}
+      handleChange={(e) => setTimeLimit(e.target.value)}
      />
      <input
       type="submit"

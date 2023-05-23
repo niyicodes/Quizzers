@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { GiCancel } from 'react-icons/gi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FormInput from './FormInput';
 import Spinner from '../speedometer.gif';
@@ -17,7 +17,6 @@ const QuizForm = ({ closeModal }) => {
 	const [points, setPoints] = useState('');
 	const [timeLimit, setTimeLimit] = useState('');
 
-	const quizForm = useSelector((state) => state.quizForm);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

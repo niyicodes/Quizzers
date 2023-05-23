@@ -83,12 +83,12 @@ const AnswerQuizPage = () => {
      <div className=" ">
       {currentIndex >= questions.length ? (
        <p className="flex justify-center text-3xl font-bold">
-        Game Ended, Your score is {score}
+        Game Ended, You scored {score} points
        </p>
       ) : remainingTime === 0 ? (
        <div>
         <p className="flex justify-center text-3xl font-bold">
-         Time's up! Your score is {score}
+         Time's up! You scored {score} points
         </p>
        </div>
       ) : (

@@ -6,7 +6,6 @@ import { TbVariablePlus } from 'react-icons/tb';
 import Image from '../images/image.jpg';
 import Question from '../Components/Question';
 import QuestionForm from '../Components/QuestionForm';
-import AnswerQuiz from './AnswerQuiz';
 import { toast } from 'react-toastify';
 import EditForm from '../Components/EditForm';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +19,6 @@ const QuizView = () => {
 	const [quiz, setQuiz] = useState({});
 	const [questions, setQuestions] = useState([]);
 	const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
-	const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
 	const [isQuizFormModalOpen, setIsQuizFormModalOpen] = useState(false);
 
 	const fetchQuizzes = async () => {
@@ -37,7 +35,7 @@ const QuizView = () => {
 
 	useEffect(() => {
 		fetchQuizzes();
-	}, [questions]);
+	}, [questions, quiz]);
 
 	const openModal = () => {
 		setIsQuestionModalOpen(true);
@@ -51,7 +49,6 @@ const QuizView = () => {
 			toast.success('Attempting Quiz', {
 				position: toast.POSITION.TOP_RIGHT,
 			});
-			// setIsAnswerModalOpen(true);
 			navigate(`/answerquiz/${id}`)
 		}
 	};
@@ -139,13 +136,6 @@ const QuizView = () => {
 						{isQuestionModalOpen && (
 							<QuestionForm setIsQuestionModalOpen={setIsQuestionModalOpen} />
 						)}
-						{/* {isAnswerModalOpen && (
-							<AnswerQuiz
-								questions={questions}
-								quiz={quiz}
-								setIsAnswerModalOpen={setIsAnswerModalOpen}
-							/>
-						)} */}
 					</div>
 				</div>
 				<div className='questions bordeer-2 mt-12'>

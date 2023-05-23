@@ -37,7 +37,6 @@ const QuestionForm = ({ setIsQuestionModalOpen }) => {
     toast.success("Question added", {
      position: toast.POSITION.TOP_RIGHT,
     });
-    // dispatch(addQuestion({qID, question, options, optionType, correctAnswer }));
    }, 600);
 
    const data = { qID, question, options, optionType, correctAnswer };
