@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { signInWithGoogle } from "../Firebase/firebase";
 
 import Video from "../images/video.mp4";

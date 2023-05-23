@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import { BiTimer, BiPlus, BiPlay, BiShare } from 'react-icons/bi';
@@ -11,13 +10,12 @@ import AnswerQuiz from './AnswerQuiz';
 import { toast } from 'react-toastify';
 import EditForm from '../Components/EditForm';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import {getDoc, doc } from 'firebase/firestore';
 import { dbStore } from '../Firebase/firebase';
 
 const QuizView = () => {
 	const { id } = useParams();
-
-	const dispatch = useDispatch();
+	const navigate = useNavigate()
 
 	const [quiz, setQuiz] = useState({});
 	const [questions, setQuestions] = useState([]);
@@ -39,13 +37,13 @@ const QuizView = () => {
 
 	useEffect(() => {
 		fetchQuizzes();
-	}, []);
+	}, [questions]);
 
 	const openModal = () => {
 		setIsQuestionModalOpen(true);
 	};
 	const AnswerModal = () => {
-		if (questions.length < 1) {
+		if (!questions) {
 			toast.error('Please add a question before attempting Quiz!', {
 				position: toast.POSITION.TOP_RIGHT,
 			});
@@ -53,12 +51,9 @@ const QuizView = () => {
 			toast.success('Attempting Quiz', {
 				position: toast.POSITION.TOP_RIGHT,
 			});
-			setIsAnswerModalOpen(true);
+			// setIsAnswerModalOpen(true);
+			navigate(`/answerquiz/${id}`)
 		}
-	};
-
-	const closeModal = () => {
-		setIsQuestionModalOpen(false);
 	};
 
 	const openQuizFormModal = () => {
@@ -68,11 +63,6 @@ const QuizView = () => {
 		setIsQuizFormModalOpen(true);
 	};
 
-	const closeEditFormModal = () => {
-		setIsQuizFormModalOpen(false);
-	};
-
-	console.log(questions);
 
 	return (
 		<main className='lg:mx-8 xs:mx-4 mt-28 font-primary'>
@@ -149,13 +139,13 @@ const QuizView = () => {
 						{isQuestionModalOpen && (
 							<QuestionForm setIsQuestionModalOpen={setIsQuestionModalOpen} />
 						)}
-						{isAnswerModalOpen && (
+						{/* {isAnswerModalOpen && (
 							<AnswerQuiz
 								questions={questions}
 								quiz={quiz}
 								setIsAnswerModalOpen={setIsAnswerModalOpen}
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 				<div className='questions bordeer-2 mt-12'>

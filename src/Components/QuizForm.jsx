@@ -10,7 +10,7 @@ import { dbStore } from '../Firebase/firebase';
 
 const QuizForm = ({ closeModal }) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	
 	const [isSpinning, setIsSpinning] = useState(false);
 	const [quizName, setQuizName] = useState('');
 	const [description, setDescription] = useState('');
