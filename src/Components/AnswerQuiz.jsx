@@ -1,6 +1,6 @@
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import React, { useEffect, useState } from 'react';
-import QuestionCard from '../Components/QuestionCard';
+import QuestionCard from './QuestionCard';
 
 const AnswerQuiz = ({ setIsAnswerModalOpen, quiz, questions }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
