@@ -3,6 +3,8 @@ import QuestionCard from "../Components/QuestionCard";
 import { getDoc, doc } from "firebase/firestore";
 import { dbStore } from "../Firebase/firebase";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../Redux/Features/User/user";
 
 const AnswerQuizPage = () => {
 
@@ -11,6 +13,8 @@ const AnswerQuizPage = () => {
  const [questions, setQuestions] = useState([]);
  const [score, setScore] = useState(0);
  const [showAnswer, setShowAnswer] = useState(false);
+
+	const user = useSelector(selectUser)
 
  const { id } = useParams();
 	const navigate = useNavigate()
@@ -35,7 +39,7 @@ const AnswerQuizPage = () => {
  const handleAnswer = (answer) => {
   if (!showAnswer) {
    if (answer === questions[currentIndex].correctAnswer) {
-    setScore(score + quiz.points);
+    setScore(score + Number(quiz.points));
    }
   }
   setShowAnswer(!false);
@@ -86,16 +90,16 @@ const AnswerQuizPage = () => {
       {currentIndex >= questions.length ? (
        <div className="flex flex-col gap-6">
 								<p className="flex justify-center text-3xl font-bold">
-        Game Ended, You scored {score} points
+        Game Ended, {user.displayName} You scored {score} points
        </p>
-							<button onClick={() => navigate("/")}></button>
+							<button onClick={() => navigate("/")} className="text-black text-3xl bg-contessa-500 w-2/4 rounded-2xl py-4">Home</button>
 							</div>
       ) : remainingTime === 0 ? (
        <div className="flex flex-col gap-6">
         <p className="flex justify-center text-3xl font-bold">
-         Time's up! You scored {score} points
+         Time's up! {user.displayName} You scored {score} points
         </p>
-								<button onClick={() => navigate("/")}></button>
+								<button onClick={() => navigate("/")} className="text-black text-3xl bg-contessa-500 w-2/4 rounded-2xl py-4">Home</button>
        </div>
       ) : (
        <>
