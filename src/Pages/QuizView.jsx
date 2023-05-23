@@ -60,6 +60,34 @@ const QuizView = () => {
 		setIsQuizFormModalOpen(true);
 	};
 
+	const shareQuiz = () =>{
+		let url = '';
+
+  // Check if the user is using a local machine
+  if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+    url = 'http://127.0.0.1:5173/answerquiz/';
+  } else {
+    // Use the hosted version URL
+    url = 'https://quizerrs.netlify.app/answerquiz/';
+  }
+		const quizURL = url + id
+
+		const tempInput = document.createElement("input");
+		tempInput.value = quizURL;
+		document.body.appendChild(tempInput);
+
+		// Select the input element and copy its value to the clipboard
+  tempInput.select();
+  document.execCommand("copy");
+
+		// Remove the temporary input element
+  document.body.removeChild(tempInput);
+
+		toast.info("Quiz link is copied to clipboard",{
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
+
 
 	return (
 		<main className='lg:mx-8 xs:mx-4 mt-28 font-primary'>
@@ -129,7 +157,7 @@ const QuizView = () => {
 						<button className='play' onClick={AnswerModal}>
 							<BiPlay className='w-5 h-5 mr-2 -ml-1' /> Play Quiz
 						</button>
-						<button className='share' disabled>
+						<button className='share' onClick={shareQuiz}>
 							<BiShare className='w-5 h-5 mr-2 -ml-1' />
 							Share Quiz
 						</button>
